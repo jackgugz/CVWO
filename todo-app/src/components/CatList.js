@@ -67,7 +67,7 @@ class CatList extends React.Component {
                     <h1>Category</h1>
                 </div>
 
-                <div className='CatsWrapper'>
+                
                     <div className='catList'>
                         {this.state.cats.map((cat) => {
                             
@@ -101,7 +101,7 @@ class CatList extends React.Component {
                     </div>
                         
 
-                </div>
+                
 
                 <AddACat 
                 handleCreate = {this.onCreate}/>

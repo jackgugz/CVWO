@@ -68,6 +68,8 @@ class Cats extends React.Component {
                     <button className="deleteCatBtn"
                     onClick={this.deleteCat}>
                         delete</button>
+
+                    
                 </div>
             </li>
         );
