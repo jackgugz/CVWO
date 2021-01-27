@@ -17,7 +17,7 @@ class TaskList extends React.Component {
     getTodos() {
         axios.get('/api/v1/todos')
         .then(response => {
-
+            
           this.setState({todos : response.data})
         })
         .catch(error => console.log(error))
@@ -44,6 +44,14 @@ class TaskList extends React.Component {
         )})
     }
 
+    onAdd = (todo) => {
+        let temp = this.state.todos
+        temp.unshift(todo);
+        this.setState({
+            todos: temp
+        })
+    }
+
     render() {
 
         return (
@@ -66,7 +74,8 @@ class TaskList extends React.Component {
                 </div>
                 
                 //need to edit
-                <AddATask catID={this.props.catID}/>
+                <AddATask catID={this.props.catID}
+                addTask={this.onAdd}/>
                 
             </div>
                 

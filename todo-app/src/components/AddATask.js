@@ -17,7 +17,7 @@ class AddATask extends React.Component {
             
             axios.post('/api/v1/todos', {todo: {title: e.target.value, done: false, category_id: this.props.catID}})
             .then(response => {
-              
+              this.props.addTask(response.data)
                 this.setState({
                   inputValue: ''
                 })
