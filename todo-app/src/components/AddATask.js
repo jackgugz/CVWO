@@ -15,7 +15,7 @@ class AddATask extends React.Component {
         
         if (e.key === 'Enter' && !(e.target.value === '')) {
             
-            axios.post('/api/v1/todos', {todo: {title: e.target.value, done: false, category_id: this.props.catID}})
+            axios.post('/api/v1/todos', {todo: {title: e.target.value, done: false, category_id: this.props.fetchCat()}})
             .then(response => {
               this.props.addTask(response.data)
                 this.setState({

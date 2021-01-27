@@ -10,6 +10,7 @@ class CatList extends React.Component {
         super(props)
         this.state = {
           cats: [],
+          selectedCat: 0
           
         }
         console.log(this.props.cats)
@@ -19,6 +20,7 @@ class CatList extends React.Component {
         .then(response => {
           
           this.setState({cats : response.data})
+          this.props.setCat(response.data)
         })
         .catch(error => console.log(error))
       }
@@ -49,11 +51,16 @@ class CatList extends React.Component {
         this.getCats()
     }
 
-    
+    handleSelectedCat = (e) => {
+        
+        this.setState({selectedCat:e.target.value})
+        
+        this.props.filterCat(e.target.value)
+    }
 
 
     render() {
-
+        console.log(this.state.cats)
         return (
             <div>
                 <div className="Category">
@@ -62,13 +69,38 @@ class CatList extends React.Component {
 
                 <div className='CatsWrapper'>
                     <div className='catList'>
-                        {this.state.cats.map((cat) => 
-                            <Cats cat={cat} 
-                            key = {cat.id}
-                            handleDelete = {this.onDelete}
-                            handleEdit = {this.onEdit}/>
-                        )}
+                        {this.state.cats.map((cat) => {
+                            
+                            return (<div key={cat.id}> 
+                                <Cats cat={cat} 
+                                key = {cat.name}
+                                handleDelete = {this.onDelete}
+                                handleEdit = {this.onEdit}/>
+
+                                
+                            </div>)
+                        
+                            })
+                        }
+
                     </div>
+                    <div>
+                        <p>
+                            Filter By Category
+                        </p>
+                        <select className="showCat" value={this.state.selectedCat} 
+                        onChange={this.handleSelectedCat}>
+                        <option value={0}>
+                            All
+                        </option>
+                        {this.state.cats.map((cat) => {
+                            return <option key={cat.id} value={cat.id}>{cat.name}</option>
+                        })}
+                        </select>
+
+                    </div>
+                        
+
                 </div>
 
                 <AddACat 

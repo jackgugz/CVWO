@@ -10,22 +10,33 @@ class TaskList extends React.Component {
         super(props)
         this.state = {
           todos: [],
+          cats: [],
+          newCat: 1,
+          filter: 0
 
         }
-        console.log(this.props.todos)
+        
     }
     getTodos() {
         axios.get('/api/v1/todos')
         .then(response => {
             
           this.setState({todos : response.data})
+          this.props.setTask(response.data)
         })
         .catch(error => console.log(error))
       }
 
-      componentDidMount() {
+    componentDidMount() {
         this.getTodos()
+        this.setState({cats: this.props.cats, filter: this.props.filterCat})
+
       }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({cats: nextProps.cats, filter: nextProps.filterCat});
+        console.log(this.state.filter)
+    }
 
 
     onDelete = (todo) => {
@@ -52,8 +63,16 @@ class TaskList extends React.Component {
         })
     }
 
-    render() {
+    handleCatChange = (e) => {
+        this.setState({newCat:e.target.value})
+    }
 
+    getNewCat = () => {
+        return this.state.newCat
+    }
+
+    render() {
+        console.log(this.state.cats)
         return (
             <div>
                 <div className="header">
@@ -62,7 +81,9 @@ class TaskList extends React.Component {
 
                 <div className='listWrapper'>
                     <div className='taskList'>
-                        {this.state.todos.map((todo) => 
+                        {this.state.todos.filter((x) => {console.log(x.category_id) 
+                        console.log(this.state.filter)
+                            return this.state.filter == 0 || x.category_id == this.state.filter}).map((todo) => 
                             <Tasks todo={todo} 
                             title = {todo.title}
                             key = {todo.id}
@@ -73,9 +94,21 @@ class TaskList extends React.Component {
                     </div>
                 </div>
                 
-                //need to edit
-                <AddATask catID={this.props.catID}
-                addTask={this.onAdd}/>
+                
+                <div>
+                    <AddATask catID={this.state.newCat}
+                    addTask={this.onAdd}
+                    fetchCat={this.getNewCat}/>
+                    <select className='dropdown' value={this.state.newCat} 
+                    onChange={this.handleCatChange}>
+                    {this.state.cats.map((cat) => {
+                        return <option key={cat.id} value={cat.id}>{cat.name}</option>
+                    })}
+                    </select>
+                </div>
+                    
+
+                
                 
             </div>
                 

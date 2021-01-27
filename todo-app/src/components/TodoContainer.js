@@ -13,22 +13,40 @@ class TodoContainer extends React.Component {
           cats: [],
           tasks: [],
           catID: 1,
+          selectedCat: 0
         }
+        this.setTask = this.setTask.bind(this)
+        this.setCat = this.setCat.bind(this)
 
+    }
+
+    setCat(cats) {
+      
+      this.setState({cats:cats})
+    }
+
+    setTask(todos) {
+      this.setState({tasks:todos})
+    }
+
+    filterCat = (cat) => {
+      this.setState({selectedCat: cat})
+      console.log(this.state.selectedCat)
     }
 
     
 
     render() {
+      console.log(this.state.cats)
         return (
             <div className="mainContainer">
       
               <div className="catContainer">
-                <CatList cats={this.state.cats}/>
+                <CatList filterCat={this.filterCat} cats={this.state.cats} setCat={this.setCat}/>
               </div>
               
               <div className='taskContainer'>
-                <TaskList catID={this.state.catID} tasks={this.state.tasks}/>
+                <TaskList filterCat={this.state.selectedCat} cats={this.state.cats} catID={this.state.catID} tasks={this.state.tasks} setTask={this.setTask}/>
               </div>
       
             </div>
