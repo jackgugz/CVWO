@@ -2,9 +2,47 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import update from 'immutability-helper'
 import AddATask from './AddATask'
+import Tasks from './Tasks'
 
 class TaskList extends React.Component {
     
+    constructor(props) {
+        super(props)
+        this.state = {
+          todos: [],
+
+        }
+        console.log(this.props.todos)
+    }
+    getTodos() {
+        axios.get('/api/v1/todos')
+        .then(response => {
+
+          this.setState({todos : response.data})
+        })
+        .catch(error => console.log(error))
+      }
+
+      componentDidMount() {
+        this.getTodos()
+      }
+
+
+    onDelete = (todo) => {
+        console.log(this.state.todos.filter(x => {return x.id !== todo.id}))
+        const newtodo = this.state.todos.filter(x => {return x.id !== todo.id})
+        this.setState({todos: newtodo})
+    }
+
+    onEdit = (todo) => {
+        this.setState({todos: this.state.todos.map(
+            (x) => {
+                if (x.id ===todo.id) {
+                    x.title = todo.title
+                }
+                return x}
+        )})
+    }
 
     render() {
 
@@ -15,12 +53,19 @@ class TaskList extends React.Component {
                 </div>
 
                 <div className='listWrapper'>
-                    <ul className='taskList'>
-                        {
-                        }
-                    </ul>
+                    <div className='taskList'>
+                        {this.state.todos.map((todo) => 
+                            <Tasks todo={todo} 
+                            title = {todo.title}
+                            key = {todo.id}
+                            handleDelete = {this.onDelete}
+                            handleEdit = {this.onEdit}
+                            done = {todo.done}/>
+                        )}
+                    </div>
                 </div>
-
+                
+                //need to edit
                 <AddATask catID={this.props.catID}/>
                 
             </div>
