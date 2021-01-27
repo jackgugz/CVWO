@@ -42,6 +42,29 @@ class Tasks extends React.Component {
         
     }
 
+    // updateTask = (e, key) => {
+    //     console.log(e)
+    //     axios.put('api/v1/todos/' + String(this.props.todo.id), {done: e})
+    //     .then(response => {
+    //         console.log(response)
+    //         this.setState({done: e})
+
+    //     .catch(error => console.log(error))
+    //     })
+    // }
+
+    updateTask(e, key){
+        this.setState({
+            done: e.target.checked
+        })
+        console.log(e.target.checked)
+        axios.put('api/v1/todos/' + String(this.props.todo.id), {todo: {done: e.target.checked}})
+        .then(
+            
+        )
+        .catch(error => console.log(error))
+    }
+
 
     handleChange = (e) => {
         this.setState({
@@ -49,9 +72,15 @@ class Tasks extends React.Component {
         })
     }
 
+    componentDidMount() {
+        this.setState({done: this.props.done,
+        editMode: false,
+        inputValue: this.props.title})
+    }
+
     render() {
         const title = this.props.title;
-        const done = this.done;
+        
         const key = this.id;
 
         
@@ -59,7 +88,7 @@ class Tasks extends React.Component {
         return (
             <li className="task" task={title} key={key}>
                 <input className="taskCheckbox" type="checkbox" 
-                    checked={done}
+                    checked={this.state.done}
                     onChange={(e) => this.updateTask(e, key)} />
                     
                 <input className="tasksLabel" disabled={!this.state.editMode}
