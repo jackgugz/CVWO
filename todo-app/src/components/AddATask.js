@@ -32,7 +32,7 @@ class AddATask extends React.Component {
     
     render() {
         return (
-            <div className='inputContainer'>
+            <div className='taskDiv'>
                 <input className='taskInput' type='text'
                     placeholder='Add a task' maxLength='50'
                     onKeyPress={this.createTask}

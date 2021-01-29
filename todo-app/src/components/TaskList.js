@@ -75,7 +75,7 @@ class TaskList extends React.Component {
         console.log(this.state.cats)
         return (
             <div>
-                <div className="header">
+                <div className="todoHeader">
                     <h1>Todo Tasks</h1>
                 </div>
 
@@ -96,15 +96,20 @@ class TaskList extends React.Component {
                 
                 
                 <div>
-                    <AddATask catID={this.state.newCat}
-                    addTask={this.onAdd}
-                    fetchCat={this.getNewCat}/>
-                    <select className='dropdown' value={this.state.newCat} 
-                    onChange={this.handleCatChange}>
-                    {this.state.cats.map((cat) => {
-                        return <option key={cat.id} value={cat.id}>{cat.name}</option>
-                    })}
-                    </select>
+                    <div className="inputContainer">
+                        <select className='dropdown' value={this.state.newCat} 
+                        onChange={this.handleCatChange}>
+                        {this.state.cats.map((cat) => {
+                            return <option key={cat.id} value={cat.id}>{cat.name}</option>
+                        })}
+                        </select>
+
+                        <AddATask catID={this.state.newCat}
+                        addTask={this.onAdd}
+                        fetchCat={this.getNewCat}/>
+                    </div>
+                    
+                        
                 </div>
                     
 

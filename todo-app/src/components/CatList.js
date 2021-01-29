@@ -67,7 +67,22 @@ class CatList extends React.Component {
                     <h1>Category</h1>
                 </div>
 
-                
+                    <div className="filterDiv">
+                        <p>
+                            Filter By Category
+                        </p>
+                        <select className="showCat" value={this.state.selectedCat} 
+                        onChange={this.handleSelectedCat}>
+                        <option value={0}>
+                            All
+                        </option>
+                        {this.state.cats.map((cat) => {
+                            return <option key={cat.id} value={cat.id}>{cat.name}</option>
+                        })}
+                        </select>
+
+                    </div>
+
                     <div className='catList'>
                         {this.state.cats.map((cat) => {
                             
@@ -84,21 +99,7 @@ class CatList extends React.Component {
                         }
 
                     </div>
-                    <div>
-                        <p>
-                            Filter By Category
-                        </p>
-                        <select className="showCat" value={this.state.selectedCat} 
-                        onChange={this.handleSelectedCat}>
-                        <option value={0}>
-                            All
-                        </option>
-                        {this.state.cats.map((cat) => {
-                            return <option key={cat.id} value={cat.id}>{cat.name}</option>
-                        })}
-                        </select>
-
-                    </div>
+                    
                         
 
                 

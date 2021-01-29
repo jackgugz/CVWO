@@ -86,7 +86,7 @@ class Tasks extends React.Component {
         
             
         return (
-            <li className="task" task={title} key={key}>
+            <div className="category">
                 <input className="taskCheckbox" type="checkbox" 
                     checked={this.state.done}
                     onChange={(e) => this.updateTask(e, key)} />
@@ -104,7 +104,7 @@ class Tasks extends React.Component {
                     onClick={(e) => this.deleteTask(key)}>
                     delete
                 </button>
-            </li>
+            </div>
         );
     }
 }

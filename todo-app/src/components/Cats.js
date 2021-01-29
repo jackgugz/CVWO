@@ -55,23 +55,23 @@ class Cats extends React.Component {
         const key = this.id;
             
         return (
-            <li className="cat" cat={cat} key={key}>
-                <div className="category">
-                    <input className="CatLabel" disabled={!this.state.editMode}
-                    value = {this.state.inputValue}
-                    onChange = {this.handleChange}/>
-                        
+            
+            <div className="category">
+                <input className="CatLabel" disabled={!this.state.editMode}
+                value = {this.state.inputValue}
+                onChange = {this.handleChange}/>
                     
-                    <button className="editCatBtn"
-                    onClick={this.editCat}>
-                        edit</button>
-                    <button className="deleteCatBtn"
-                    onClick={this.deleteCat}>
-                        delete</button>
+                
+                <button className="editCatBtn"
+                onClick={this.editCat}>
+                    edit</button>
+                <button className="deleteCatBtn"
+                onClick={this.deleteCat}>
+                    delete</button>
 
                     
-                </div>
-            </li>
+            </div>
+            
         );
     }
 }
